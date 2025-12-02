@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    char str[200];
+    fgets(str, sizeof(str), stdin);
+
+    char words[50][50];
+    int freq[50] = {0};
+    int wordCount = 0;
+
+    char currentWord[50];
+    int index = 0;
+
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (str[i] != ' ' && str[i] != '\n') {
+            currentWord[index] = str[i];
+            index++;
+        } else {
+            if (index > 0) {
+                currentWord[index] = '\0';
+                strcpy(words[wordCount], currentWord);
+                wordCount++;
+                index = 0;
+            }
+        }
+    }
+
+    if (index > 0) {
+        currentWord[index] = '\0';
+        strcpy(words[wordCount], currentWord);
+        wordCount++;
+    }
+
+    for (int i = 0; i < wordCount; i++) {
+        if (freq[i] == -1) continue;
+        int count = 1;
+        for (int j = i + 1; j < wordCount; j++) {
+            if (strcmp(words[i], words[j]) == 0) {
+                count++;
+                freq[j] = -1;
+            }
+        }
+        freq[i] = count;
+    }
+
+    int maxFreq = 0;
+    int maxIndex = 0;
+    for (int i = 0; i < wordCount; i++) {
+        if (freq[i] > maxFreq) {
+            maxFreq = freq[i];
+            maxIndex = i;
+        }
+    }
+
+    printf("\nMost frequent word:\n");
+    printf("'%s' occurred %d times\n", words[maxIndex], maxFreq);
+
+    return 0;
+}
