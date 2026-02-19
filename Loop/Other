@@ -1,0 +1,39 @@
+#include<stdio.h>
+int main()
+{
+    int process;
+    printf("Number of processes: ");
+    scanf("%d",&process);
+
+    int a[process],b[process],c[process];
+
+    printf("Enter the arrival time of processes: ");
+    for(int i=0;i<process;i++)
+    {
+        scanf("%d",&a[i]);
+
+    }
+    printf("Enter the burst time of processes: ");
+    for(int i=0;i<process;i++)
+    {
+        scanf("%d",&b[i]);
+    }
+    int k = 0;
+    for(int i=0;i<process;i++)
+    {
+        if(a[i]>k)
+        k=a[i]+b[i];
+        else
+        k=k+b[i];
+        c[i]=k;
+    }
+
+    printf("AT BT CT\n");
+    {
+        for(int i=0;i<process;i++)
+        {
+            printf("%d %d %d\n",a[i],b[i],c[i]);
+        }
+    }
+    return 0;
+}
